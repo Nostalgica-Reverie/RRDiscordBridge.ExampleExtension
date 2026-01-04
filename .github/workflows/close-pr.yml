@@ -1,0 +1,14 @@
+name: Auto close PRs
+
+on:
+  pull_request:
+    types: [opened]
+
+jobs:
+  close:
+    permissions: write-all
+    runs-on: ubuntu-latest
+    steps:
+      - run: gh pr close "${{ github.event.pull_request.html_url }}" -c "PRs for this repo are not accepted on GitHub. Please fork the [Codeberg repo](https://codeberg.org/Nostalgica-Reverie/RRDiscordBridge), push your changes, and make a PR."
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
